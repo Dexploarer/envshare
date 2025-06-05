@@ -3,7 +3,7 @@ import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const navigation = [
+const navigation: { name: string; href: string; external?: boolean }[] = [
   {
     name: "Share",
     href: "/share",
@@ -16,7 +16,7 @@ const navigation = [
     name: "Team Vault",
     href: "/dashboard",
   }
-] satisfies { name: string; href: string; external?: boolean }[];
+];
 
 export const Header: React.FC = () => {
   const pathname = usePathname();
@@ -31,7 +31,7 @@ export const Header: React.FC = () => {
           <nav className="flex items-center grow">
             <ul className="flex flex-wrap items-center justify-end gap-4 grow">
               {navigation.map((item) => (
-                <li className="\" key={item.href}>
+                <li className="" key={item.href}>
                   <Link
                     className={`flex items-center px-3 py-2 duration-150 text-sm sm:text-base hover:text-burnt-orange-400
                     ${pathname === item.href ? "text-zinc-200" : "text-zinc-400"}`}
