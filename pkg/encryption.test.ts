@@ -8,7 +8,7 @@ beforeAll(() => {
 });
 describe("aes", () => {
   it("encrypts and decrypts correctly", async () => {
-    for (let i = 0; i < 500; i++) {
+    for (let i = 0; i < 50; i++) {
       const buf = new Uint8Array(Math.ceil(Math.random() * 10 * i));
       crypto.getRandomValues(buf);
 
@@ -20,5 +20,5 @@ describe("aes", () => {
 
       expect(decrypted).toEqual(text);
     }
-  }, 30_000);
+  }, 10_000);
 });

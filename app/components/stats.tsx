@@ -4,7 +4,11 @@ const redis = (() => {
   try {
     return Redis.fromEnv();
   } catch (error) {
-    console.warn("Redis connection error:", error.message);
+    if (error instanceof Error) {
+      console.warn("Redis connection error:", error.message);
+    } else {
+      console.warn("Redis connection error:", error);
+    }
     return null;
   }
 })();
@@ -40,7 +44,7 @@ export const Stats = asyncComponent(async () => {
       .get("envshare:metrics:reads")
       .get("envshare:metrics:writes")
       .exec<[number, number]>();
-    
+
     let stars;
     try {
       stars = await fetch("https://api.github.com/repos/chronark/envshare")
@@ -89,9 +93,7 @@ export const Stats = asyncComponent(async () => {
     console.error("Error rendering Stats component:", error);
     return (
       <section className="container mx-auto">
-        <div className="text-center text-zinc-500">
-          Could not load statistics
-        </div>
+        <div className="text-center text-zinc-500">Could not load statistics</div>
       </section>
     );
   }
