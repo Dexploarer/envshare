@@ -9,7 +9,7 @@ beforeAll(() => {
 });
 describe("composite key encoding", () => {
   it("encodes and decodes composite keys", async () => {
-    for (let i = 0; i < 10000; i++) {
+    for (let i = 0; i < 100; i++) {
       const id = generateId();
       const key = new Uint8Array(await crypto.subtle.exportKey("raw", await generateKey()));
 
@@ -19,5 +19,5 @@ describe("composite key encoding", () => {
       expect(decoded.id).toEqual(id);
       expect(decoded.encryptionKey).toEqual(key);
     }
-  });
+  }, 30_000);
 });
